@@ -15,11 +15,18 @@
         </div>
         <div>
             {% if user.is_authenticated %}
-                <span data-testid="user-greeting">Hello, {{ user.username }}!</span>
-                <form method="post" action="{% url 'logout' %}" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit" data-testid="button-logout">Logout</button>
-                </form>
+                <div class="user-dropdown">
+                    <a href="#" class="dropdown-toggle" data-testid="user-dropdown-button">
+                        {{ user.username }} ▼
+                    </a>
+                <div class="dropdown-menu" data-testid="user-dropdown-menu">
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" data-testid="button-logout" class="dropdown-item">Logout</button>
+                    </form>
+                </div>
+        </div>
+
             {% else %}
                 <a href="{% url 'login' %}" data-testid="link-login">Login</a>
                 <a href="{% url 'register' %}" data-testid="link-register">Register</a>
@@ -36,6 +43,8 @@
         {% endif %}
         {% block content %}{% endblock %}
     </main>
-    {% block extra_js %}{% endblock %}
+    {% block extra_js %}
+        <script src="{% static 'js/main.js' %}"></script>
+    {% endblock %}
 </body>
 </html>
