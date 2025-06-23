@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %}Logowanie{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block content %}
-<h2 data-testid="form-title">Logowanie</h2>
+<h2 data-testid="form-title">Login</h2>
 <form method="post" data-testid="form-login">
     {% csrf_token %}
-    <label for="username">Nazwa użytkownika:</label>
+    <label for="username">Username:</label>
     <input type="text" id="username" name="username" required data-testid="input-username" />
 
-    <label for="password">Hasło:</label>
+    <label for="password">Password:</label>
     <input type="password" id="password" name="password" required data-testid="input-password" />
 
-    <button type="submit" data-testid="button-login">Zaloguj się</button>
+    <button type="submit" data-testid="button-login">Log in</button>
 </form>
 {% endblock %}

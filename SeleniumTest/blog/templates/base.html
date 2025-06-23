@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% block title %}Moja aplikacja{% endblock %}</title>
+    <title>{% block title %}My Application{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
     {% block extra_head %}{% endblock %}
 </head>
@@ -15,7 +15,7 @@
         </div>
         <div>
             {% if user.is_authenticated %}
-                <span data-testid="user-greeting">Witaj, {{ser.username }}!</span>
+                <span data-testid="user-greeting">Hello, {{ user.username }}!</span>
                 <form method="post" action="{% url 'logout' %}" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" data-testid="button-logout">Logout</button>

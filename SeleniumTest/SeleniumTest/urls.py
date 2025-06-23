@@ -22,7 +22,6 @@ urlpatterns = [
 
     # Blog URLs
     path('', include('blog.urls')),
-    path('posts/', include('blog.urls')),
 
     # Accounts URLs
     path('accounts/', include('accounts.urls')),
