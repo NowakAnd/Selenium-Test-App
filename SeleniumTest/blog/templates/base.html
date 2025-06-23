@@ -1,0 +1,41 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Moja aplikacja{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <nav>
+        <div>
+            <a href="{% url 'home' %}" data-testid="link-home">Home</a>
+            <a href="{% url 'posts' %}" data-testid="link-post-list">Posts</a>
+        </div>
+        <div>
+            {% if user.is_authenticated %}
+                <span data-testid="user-greeting">Witaj, {{ser.username }}!</span>
+                <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" data-testid="button-logout">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" data-testid="link-login">Login</a>
+                <a href="{% url 'register' %}" data-testid="link-register">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+    <main>
+        {% if messages %}
+            <div class="messages" data-testid="messages">
+                {% for message in messages %}
+                    <div class="{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

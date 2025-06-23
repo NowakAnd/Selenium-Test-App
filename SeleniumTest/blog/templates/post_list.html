@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Wszystkie posty</h1>
+
+{% for post in posts %}
+    <div data-testid="post">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.content|linebreaks }}</p>
+        <p><small>Dodano przez {{ post.author.username }} dnia {{ post.created_at }}</small></p>
+        <hr>
+    </div>
+{% empty %}
+    <p data-testid="no-posts">Brak postów do wyświetlenia.</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+    <form method="get" action="{% url 'post_create' %}" style="margin-bottom: 1em;">
+        <button type="submit" data-testid="button-create-post">Add post</button>
+    </form>
+{% endif %}
+
+{% endblock %}

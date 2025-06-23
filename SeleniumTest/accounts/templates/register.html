@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Rejestracja{% endblock %}
+
+{% block content %}
+<h2 data-testid="form-title">Rejestracja</h2>
+<form method="post" data-testid="form-register">
+    {% csrf_token %}
+    <label for="username">Nazwa użytkownika:</label>
+    <input type="text" id="username" name="username" required data-testid="input-username" />
+
+    <label for="password">Hasło:</label>
+    <input type="password" id="password" name="password" required data-testid="input-password" />
+
+    <button type="submit" data-testid="button-register">Zarejestruj się</button>
+</form>
+{% endblock %}
