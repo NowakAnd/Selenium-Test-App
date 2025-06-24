@@ -1,22 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>All Posts</h1>
+{% if perms.blog.view_post %}
+    {% for post in posts %}
+        <div data-testid="post" id="post-{{ post.pk }}">
+        <h2 class="post-title">{{ post.title }}</h2>
+        <div class="post-content">{{ post.content|linebreaks }}</div>
+        <p><small>Posted by {{ post.author.username }} on {{ post.created_at }}</small></p>
 
-{% for post in posts %}
-    <div data-testid="post" id="post-{{ post.pk }}">
-    <h2 class="post-title">{{ post.title }}</h2>
-    <div class="post-content">{{ post.content|linebreaks }}</div>
-    <p><small>Posted by {{ post.author.username }} on {{ post.created_at }}</small></p>
+        {% if user == post.author %}
+            <button data-post-id="{{ post.pk }}" class="btn-edit" data-testid="button-edit-post">Edit</button>
+        {% endif %}
+        {% if user == post.author or perms.blog.delete_post %}
+            <form method="post" action="{% url 'post_delete' post.id %}" data-post-id="{{ post.id }}" style="display:inline-block;">
+                {% csrf_token %}
+                <button type="submit" onclick="return confirm('Are you sure you want to delete this post?');" class="btn-delete" data-testid="button-delete-post">Delete</button>
+            </form>
+        {% endif %}
 
-    {% if user == post.author %}
-        <button data-post-id="{{ post.pk }}" class="btn-edit" data-testid="button-edit-post">Edit</button>
-    {% endif %}
-</div>
-{% empty %}
-    <p data-testid="no-posts">No posts to display.</p>
-{% endfor %}
+    </div>
+    {% empty %}
+        <p data-testid="no-posts">No posts to display.</p>
+    {% endfor %}
+{% else %}
+    <p data-testid="no-permissions-to-view">No permissions to view posts. Please log in to account.</p>
+{% endif %}
 
-{% if user.is_authenticated %}
+{% if perms.blog.add_post %}
     <form method="get" action="{% url 'post_create' %}" style="margin-bottom: 1em;">
         <button type="submit" data-testid="button-create-post">Add post</button>
     </form>

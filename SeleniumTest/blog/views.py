@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
+from django.contrib import messages
 
 from .forms import PostForm
 from .models import Post
@@ -51,3 +52,17 @@ def post_edit_ajax(request, pk):
             'content': post.content
         }
     })
+
+def post_delete(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.user != post.author and not request.user.has_perm('blog.delete_post'):
+        messages.error(request, "You do not have permission to delete this post.")
+        return redirect('posts')
+
+    if request.method == 'POST':
+        post.delete()
+        messages.success(request, "Post deleted successfully")
+        return redirect('posts')
+
+    return redirect('posts')

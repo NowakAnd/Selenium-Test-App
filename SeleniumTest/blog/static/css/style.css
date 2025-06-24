@@ -75,16 +75,36 @@ form button:hover {
 .messages .success {
     color: #008000;
 }
-button[data-testid="button-edit-post"] {
-    background-color: #2ecc71;
+.btn-edit {
+    background-color: #0366d6;
     color: #fff;
     border: none;
     padding: 6px 12px;
     border-radius: 4px;
+    min-width: 50px;
     cursor: pointer;
+    display: inline-block;
+    font-weight: 700;
+    font-size: 1em;
+    font-family: inherit;
 }
 
-button[data-testid="button-edit-post"]:hover {
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    min-width: 50px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+btn-edit:hover {
     background-color: #27ae60;
 }
 

@@ -5,15 +5,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const postDiv = document.getElementById(`post-${postId}`);
             const titleEl = postDiv.querySelector('.post-title');
             const contentEl = postDiv.querySelector('.post-content');
+            const deleteForm = document.querySelector(`form[data-post-id="${postId}"]`);
 
             console.log('postDiv:', postDiv);
             console.log('contentEl:', contentEl);
-
+            console.log('deleteForm:', deleteForm);
 
 
             titleEl.style.display = 'none';
             contentEl.style.display = 'none';
             button.style.display = 'none';
+            deleteForm.style.display = 'none';
 
 
             const form = document.createElement('form');
@@ -33,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 titleEl.style.display = '';
                 contentEl.style.display = '';
                 button.style.display = '';
+                deleteForm.style.display = 'inline-block';
             });
 
 
