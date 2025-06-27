@@ -19,13 +19,16 @@
                     <a href="#" class="dropdown-toggle" data-testid="user-dropdown-button">
                         {{ user.username }} ▼
                     </a>
-                <div class="dropdown-menu" data-testid="user-dropdown-menu">
-                    <form method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button type="submit" data-testid="button-logout" class="dropdown-item">Logout</button>
-                    </form>
+                    <div class="dropdown-menu" data-testid="user-dropdown-menu">
+                        <form method="post" action="{% url 'logout' %}">
+                            {% csrf_token %}
+                            <button type="submit" data-testid="button-logout" class="dropdown-item">Logout</button>
+                        </form>
+                        <form method="get" action="{% url 'user_profile' %}">
+                            <button type="submit" data-post-id="button-profile" class="dropdown-item">Profile</button>
+                        </form>
+                    </div>
                 </div>
-        </div>
 
             {% else %}
                 <a href="{% url 'login' %}" data-testid="link-login">Login</a>

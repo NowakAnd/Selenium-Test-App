@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<h2 data-testid="profile-header">User Profile</h2>
+
+<ul data-testid="profile-info">
+    <li>Username: {{ user.username }}</li>
+    <li>Email: {{ user.email }}</li>
+    <li>Joined: {{ user.date_joined }}</li>
+    <li>Groups:
+        <ul>
+            {% for group in user.groups.all %}
+                <li>{{ group.name }}</li>
+            {% empty %}
+                <li>No groups</li>
+            {% endfor %}
+        </ul>
+    </li>
+</ul>
+{% endblock %}
